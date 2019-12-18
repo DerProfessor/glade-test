@@ -206,7 +206,7 @@ writeSharedATermFile fp = writeFileSDoc fp . writeSharedATermSDoc
 writeSharedATermSDoc' :: Bool -> ATermTable -> SDoc
 writeSharedATermSDoc' b at =
     case writeTAF b (toReadonlyATT at) emptyATab of
-    WS _ (DocLen doc _) -> (if b then text "!" else empty) <> doc
+    WS _ (DocLen doc _) -> (if b then text "!" else empty) ATerm.SimpPretty.<> doc
 
 --shared (if input is True)
 
@@ -236,11 +236,11 @@ dlConcat :: DocLen -> DocLen -> DocLen
 dlConcat s1@(DocLen sf1 sl1) s2@(DocLen sf2 sl2)
     | sl1 == 0 = s2
     | sl2 == 0 = s1
-    | otherwise = DocLen (sf1 <> sf2) $ sl1 + sl2
+    | otherwise = DocLen (sf1 ATerm.SimpPretty.<> sf2) $ sl1 + sl2
 
 dlConcatComma :: DocLen -> DocLen -> DocLen
 dlConcatComma (DocLen sf1 sl1) (DocLen sf2 sl2) =
-    DocLen (sf1 <> comma <> sf2) $ sl1 + sl2 + 1
+    DocLen (sf1 ATerm.SimpPretty.<> comma ATerm.SimpPretty.<> sf2) $ sl1 + sl2 + 1
 
 -- produce comma seperated output from aterm indices
 writeTAFs :: Bool -> ATermTable -> [Int] -> AbbrevTable DocLen -> WriteStruct
