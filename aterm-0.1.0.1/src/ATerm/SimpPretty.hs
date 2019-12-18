@@ -39,6 +39,7 @@ module ATerm.SimpPretty (
   ) where
 
 import System.IO
+import Prelude hiding ((<>))
 
 infixl 6 <>
 
