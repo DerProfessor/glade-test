@@ -1,0 +1,5 @@
+spec sp =
+  sort s
+  . forall x:s
+ . x=x %(refl)% %implied
+end  
